@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <title>Bantuan Merchant — Prototipe</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      background: #f7f8f8;
+      color: #202124;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .screen {
+      position: relative;
+      width: 100%;
+      max-width: 480px;
+      min-height: 100vh;
+      min-height: 100dvh;
+      margin: 0 auto;
+      padding: 78px 24px calc(104px + env(safe-area-inset-bottom));
+      background: #fff;
+    }
+    .brand {
+      position: absolute;
+      top: 18px;
+      right: 24px;
+      left: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eceff0;
+      color: #202124;
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .brand img { display: block; flex: 0 0 42px; width: 42px; height: 42px; object-fit: cover; border-radius: 10px; }
+    .brand-name { line-height: 1.25; }
+    .screen { padding-top: 82px; }
+    .prototype-tag {
+      display: inline-block;
+      margin: 0 0 14px;
+      padding: 5px 9px;
+      border-radius: 5px;
+      background: #f1f3f4;
+      color: #5f6368;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .3px;
+    }
+    h1 {
+      margin: 0 0 18px;
+      font-size: 23px;
+      line-height: 1.32;
+      letter-spacing: -.25px;
+    }
+    .question { margin: 0; font-size: 16px; line-height: 1.5; font-weight: 700; }
+    .service-title { margin: 22px 0 12px; font-size: 16px; font-weight: 700; }
+    .services { display: grid; gap: 10px; margin: 0; }
+    .service-option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      min-height: 58px;
+      padding: 12px 14px;
+      border: 1px solid #dadce0;
+      border-radius: 10px;
+      background: #fff;
+      color: #202124;
+      text-align: left;
+      font: 600 15px/1.35 Arial, Helvetica, sans-serif;
+      cursor: pointer;
+    }
+    .service-option:focus-visible, .continue:focus-visible, .help-link:focus-visible {
+      outline: 3px solid #16803d;
+      outline-offset: 2px;
+    }
+    .service-option[aria-pressed="true"] { border: 2px solid #08ad50; background: #f2fbf5; }
+    .dot {
+      flex: 0 0 18px;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #9aa0a6;
+      border-radius: 50%;
+    }
+    .service-option[aria-pressed="true"] .dot { border: 5px solid #08ad50; }
+    .message {
+      margin: 18px 0 0;
+      padding: 12px;
+      border: 1px solid #d9eadf;
+      border-radius: 7px;
+      background: #f4fbf6;
+      color: #27623d;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .message[hidden] { display: none; }
+    .bottom-bar {
+      position: fixed;
+      z-index: 2;
+      right: 0;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 480px;
+      padding: 14px 24px calc(13px + env(safe-area-inset-bottom));
+      border-top: 1px solid #e6e6e6;
+      background: #fff;
+    }
+    .continue {
+      width: 100%;
+      min-height: 54px;
+      border: 0;
+      border-radius: 6px;
+      background: #08ad50;
+      color: #fff;
+      font: 600 18px Arial, Helvetica, sans-serif;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, .12);
+      cursor: pointer;
+    }
+    .continue:active { background: #079746; }
+    @media (max-width: 380px) {
+      .screen { padding-right: 20px; padding-left: 20px; }
+      .brand { right: 20px; left: 20px; }
+      .bottom-bar { padding-right: 20px; padding-left: 20px; }
+      h1 { font-size: 21px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="screen">
+    <header class="brand" aria-label="Pusat bantuan">
+      <img src="grabapp_logo.jpeg" alt="Logo Grab">
+      <span class="brand-name">Pusat bantuan</span>
+    </header>
+    <div class="prototype-tag">PROTOTIPE / DEMO</div>
+    <h1>Selamat datang di layanan Aplikasi Grab Merchant &amp; OVO</h1>
+    <p class="question">Apakah Anda punya pertanyaan seputar pesanan atau transaksi di aplikasi Grab Merchant &amp; OVO?</p>
+
+    <p class="service-title" id="serviceTitle">Pilih layanan yang sesuai:</p>
+    <div class="services" role="group" aria-labelledby="serviceTitle">
+      <button class="service-option" type="button" aria-pressed="false"><span class="dot" aria-hidden="true"></span><span>Kendala Akun</span></button>
+      <button class="service-option" type="button" aria-pressed="false"><span class="dot" aria-hidden="true"></span><span>Transaksi berkendala</span></button>
+      <button class="service-option" type="button" aria-pressed="false"><span class="dot" aria-hidden="true"></span><span>Pengiriman tidak sesuai atau ada masalah</span></button>
+      <button class="service-option" type="button" aria-pressed="false"><span class="dot" aria-hidden="true"></span><span>Terkait saldo aplikasi (contoh: refund atau saldo GrabKios tidak tampil)</span></button>
+      <button class="service-option" type="button" aria-pressed="false"><span class="dot" aria-hidden="true"></span><span>Masalah lainnya</span></button>
+    </div>
+
+    <div class="message" id="message" role="status" aria-live="polite" hidden></div>
+  </main>
+
+  <footer class="bottom-bar">
+    <button class="continue" id="continueButton" type="button">Lanjutkan</button>
+  </footer>
+
+  <script>
+    const options = document.querySelectorAll('.service-option');
+    const message = document.getElementById('message');
+
+    options.forEach(function (option) {
+      option.addEventListener('click', function () {
+        options.forEach(function (item) {
+          item.setAttribute('aria-pressed', 'false');
+        });
+        option.setAttribute('aria-pressed', 'true');
+        message.hidden = true;
+        message.textContent = '';
+      });
+    });
+
+    document.getElementById('continueButton').addEventListener('click', function () {
+      const selected = document.querySelector('.service-option[aria-pressed="true"]');
+      if (!selected) {
+        message.textContent = 'Silakan pilih kategori kendala terlebih dahulu.';
+        message.hidden = false;
+        return;
+      }
+
+      const category = selected.innerText.trim();
+      const chatUrl = 'live-chat.html?category=' + encodeURIComponent(category);
+      const chatWindow = window.open(chatUrl, '_blank');
+      if (!chatWindow) {
+        message.textContent = 'Browser memblokir pop-up. Izinkan pop-up untuk situs ini, lalu klik Lanjutkan kembali.';
+        message.hidden = false;
+        return;
+      }
+      chatWindow.opener = null;
+    });
+  </script>
+</body>
+</html>
