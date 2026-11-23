@@ -71,7 +71,7 @@
       </div>
     </header>
     <div class="category" id="category"></div>
-    <p class="notice">Silakan ketuk widget chat Tawk.to untuk memulai percakapan langsung dengan tim bantuan.</p>
+    <p class="notice">Chat dengan admin akan terbuka otomatis. Jika jendela chat tidak muncul, ketuk ikon chat di pojok kanan bawah.</p>
     <div class="chat-space" aria-hidden="true"></div>
   </main>
   <script>
@@ -82,6 +82,9 @@
   <!--Start of Tawk.to Script-->
   <script type="text/javascript">
     var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    Tawk_API.onLoad = function () {
+      Tawk_API.maximize();
+    };
     (function () {
       var s1 = document.createElement('script'), s0 = document.getElementsByTagName('script')[0];
       s1.async = true;
