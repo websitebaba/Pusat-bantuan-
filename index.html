@@ -188,13 +188,7 @@
 
       const category = selected.innerText.trim();
       const chatUrl = 'live-chat.html?category=' + encodeURIComponent(category);
-      const chatWindow = window.open(chatUrl, '_blank');
-      if (!chatWindow) {
-        message.textContent = 'Browser memblokir pop-up. Izinkan pop-up untuk situs ini, lalu klik Lanjutkan kembali.';
-        message.hidden = false;
-        return;
-      }
-      chatWindow.opener = null;
+      window.location.assign(chatUrl);
     });
   </script>
 </body>
